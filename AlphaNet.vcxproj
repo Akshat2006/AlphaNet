@@ -124,10 +124,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="activations.h" />
+    <ClInclude Include="loss.h" />
     <ClInclude Include="mathlinalg.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="activations.cpp" />
+    <ClCompile Include="loss.cpp" />
     <ClCompile Include="mathlinalg.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

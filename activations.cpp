@@ -48,10 +48,4 @@ public:
 
 		return output;
 	}
-
-	VECTOR derivative(const VECTOR& input)
-	{
-		VECTOR ouput(input.size()); //how the fuck do i do ts gng makes no sense
-	}
-
 };

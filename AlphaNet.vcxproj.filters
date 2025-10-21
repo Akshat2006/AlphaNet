@@ -21,12 +21,18 @@
     <ClInclude Include="activations.h">
       <Filter>Resource Files</Filter>
     </ClInclude>
+    <ClInclude Include="loss.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="mathlinalg.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="activations.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="loss.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
