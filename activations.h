@@ -1,10 +1,19 @@
-#pragma once
 #ifndef ACTIVATIONS_H
-#define ACTIVATIONS_H
+#define ACTIVATIONs_H
 
 #include "mathlinalg.h"
-#include <cmath>
 
+class ReLu
+{
+public:
+	VECTOR forward(const VECTOR& input);
+	VECTOR derivative(const VECTOR& input);
+};
 
-#endif // ACTIVATIONS_H
+class softmax
+{
+public:
+	VECTOR forward(const VECTOR& input);
+};
 
+#endif
