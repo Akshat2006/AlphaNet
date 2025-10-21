@@ -19,7 +19,7 @@ public:
 		VECTOR deriv(input.size());
 		for (size_t i = 0; i < input.size(); i++)
 		{
-			deriv[i] = (input[i] > 0) ? 1.0 : 0.0;
+			deriv[i] = (input[i] > 0) ? 1.0 : 0.0; 
 		}
 		return deriv;
 	}
@@ -42,12 +42,16 @@ public:
 			output[i] = std::exp(input[i] - max_val);
 			sum += output[i];
 		}
-		for (size_t i = 0; i < input.size(); ++i) {
+		for (size_t i = 0; i < input.size(); ++i) { //normalize ts gng
 			output[i] /= sum;
 		}
 
 		return output;
 	}
 
+	VECTOR derivative(const VECTOR& input)
+	{
+		VECTOR ouput(input.size()); //how the fuck do i do ts gng makes no sense
+	}
 
 };
