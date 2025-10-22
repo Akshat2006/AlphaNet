@@ -24,6 +24,12 @@
     <ClInclude Include="loss.h">
       <Filter>Resource Files</Filter>
     </ClInclude>
+    <ClInclude Include="layers.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="neuralnetwork.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="mathlinalg.cpp">
@@ -33,6 +39,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="loss.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="layers.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="neuralnetwork.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

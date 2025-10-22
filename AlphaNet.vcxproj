@@ -124,13 +124,17 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="activations.h" />
+    <ClInclude Include="layers.h" />
     <ClInclude Include="loss.h" />
     <ClInclude Include="mathlinalg.h" />
+    <ClInclude Include="neuralnetwork.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="activations.cpp" />
+    <ClCompile Include="layers.cpp" />
     <ClCompile Include="loss.cpp" />
     <ClCompile Include="mathlinalg.cpp" />
+    <ClCompile Include="neuralnetwork.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

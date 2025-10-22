@@ -6,14 +6,14 @@
 class ReLu
 {
 public:
-	VECTOR forward(const VECTOR& input);
-	VECTOR derivative(const VECTOR& input);
+	static VECTOR forward(const VECTOR& input);
+	static VECTOR derivative(const VECTOR& input);
 };
 
 class softmax
 {
 public:
-	VECTOR forward(const VECTOR& input);
+	static VECTOR forward(const VECTOR& input);
 };
 
 #endif
