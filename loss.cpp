@@ -1,10 +1,8 @@
 #include "mathlinalg.h"
-#include <cmath>
+#include "loss.h"
 
-class cross_entropy
-{	
 
-	double compute_loss(VECTOR& predictions, VECTOR& target)
+double cross_entropy::compute_loss(VECTOR& predictions, VECTOR& target)
 	{
 		double loss = 0.0;
 		for (size_t i = 0; i < predictions.size(); i++)
@@ -13,15 +11,15 @@ class cross_entropy
 		}
 		return loss;
 	}
-	VECTOR gradient(VECTOR& predictions, VECTOR& target)
+VECTOR cross_entropy::gradient(VECTOR& predictions, VECTOR& target)
+{
+	VECTOR grad(predictions.size());
+
+	for (size_t i = 0; i < predictions.size(); i++)
 	{
-		VECTOR grad(predictions.size());
-
-		for (size_t i = 0; i < predictions.size(); i++)
-		{
 			grad[i] = predictions[i] - target[i];
-		}
-		return grad;
-
 	}
-};
+	return grad;
+
+}
+
