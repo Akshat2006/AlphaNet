@@ -8,7 +8,6 @@ class neural_net
 {
 private:
 	std::vector<LAYER> layers;
-	long long layer_num;
 	double learning_rate;
 public:
 	neural_net(std::vector <LAYER>& architecture, double learning_rate_ = 0.01)
@@ -34,6 +33,20 @@ public:
 
 	void backward(VECTOR& input, VECTOR& target)
 	{
+		LAYER& output_layer = layers.back();
+		output_layer.setDelta(cross_entropy::gradient(output_layer.getActivation(), target));
+
+		for (size_t i = layers.size() - 2; i >= 0; --i)
+		{
+			LAYER& current = layers[i];
+			LAYER& next = layers[i + 1];
+
+			current.setDelta(
+				(next.getweights().T() * next.getDelta())
+				.hadamard(ReLu::derivative(current.getOutput()))
+			);
+
+		}
 
 	}
 };

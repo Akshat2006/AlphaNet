@@ -2,7 +2,7 @@
 #include "loss.h"
 
 
-double cross_entropy::compute_loss(VECTOR& predictions, VECTOR& target)
+double cross_entropy::compute_loss(const VECTOR& predictions, const VECTOR& target)
 	{
 		double loss = 0.0;
 		for (size_t i = 0; i < predictions.size(); i++)
@@ -11,7 +11,7 @@ double cross_entropy::compute_loss(VECTOR& predictions, VECTOR& target)
 		}
 		return loss;
 	}
-VECTOR cross_entropy::gradient(VECTOR& predictions, VECTOR& target)
+VECTOR cross_entropy::gradient(const VECTOR& predictions, const VECTOR& target)
 {
 	VECTOR grad(predictions.size());
 
