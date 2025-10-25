@@ -1,51 +1,30 @@
+#include "layers.h"
 #include "mathlinalg.h"
-#include "loss.h"
 #include "activations.h"
-#include <vector>
-#include <memory>
 
+LAYER::LAYER(VECTOR& input, VECTOR& output, bool is_output) :
+    input_size(input.size()),
+    output_size(output.size()),
+    weights(output.size(), input.size(), true),
+    biases(input.size(), true),
+    output(output_size),
+    activation(output_size),
+    delta(output_size),
+    is_output_layer(is_output){}
 
-class LAYER
+VECTOR& LAYER::activate(VECTOR& input)
 {
-private:
-	MATRIX weights;
-	VECTOR biases;
-	VECTOR output;
-	VECTOR activation;
-	VECTOR delta;
+    output = weights * input;
 
-	size_t input_size;
-	size_t output_size;
+    for (size_t i = 0; i < output_size; ++i) {
+        output[i] += biases[i];
+    }
+    if (is_output_layer) {
+        activation = softmax::forward(output);
+    }
+    else {
+        activation = ReLu::forward(output);
+    }
 
-	bool is_output_layer;
-
-public:
-	LAYER(VECTOR& input, VECTOR& output, bool is_output = false) :
-		input_size(input.size()),
-		output_size(output.size()),
-		weights(output.size(), input.size(), true),
-		biases(input.size(), true),
-		output(output_size),
-		activation(output_size),
-		delta(output_size),
-		is_output_layer(is_output){ }	
-
-	VECTOR& activate(VECTOR& input)
-	{
-		output = weights * input;
-		for (size_t i = 0; i < output_size; ++i) {
-			output[i] += biases[i];
-		}
-
-		if (is_output_layer) {
-			activation = softmax::forward(output);
-		}
-		else {
-			activation = ReLu::forward(output);
-		}
-
-		return activation;
-	}
-
-
-};
+    return activation;
+}
