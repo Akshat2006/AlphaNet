@@ -7,7 +7,7 @@
 class cross_entropy
 {
 public:
-	double compute_loss(const VECTOR& predictions,const VECTOR& target);
+	static double compute_loss(const VECTOR& predictions,const VECTOR& target);
 	static VECTOR gradient(const VECTOR& predictions,const VECTOR& target);
 
 };

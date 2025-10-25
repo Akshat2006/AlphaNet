@@ -27,7 +27,9 @@ public:
     size_t getInputSize() const { return input_size; }
     size_t getOutputSize() const { return output_size; }
     bool getIsOutputLayer() const { return is_output_layer; }
+    MATRIX& getweights() { return weights; }
     const MATRIX getweights() const { return weights; }
+    VECTOR& getBiases() { return biases; }
     const VECTOR& getBiases() const { return biases; }
     const VECTOR& getOutput() const { return output; }
     const VECTOR& getActivation() const { return activation; }

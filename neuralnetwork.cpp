@@ -31,7 +31,7 @@ public:
 		return current;
 	}
 
-	void backward(VECTOR& input, VECTOR& target)
+	void backward(const VECTOR& input, const VECTOR& target)
 	{
 		LAYER& output_layer = layers.back();
 		output_layer.setDelta(cross_entropy::gradient(output_layer.getActivation(), target));
@@ -48,5 +48,45 @@ public:
 
 		}
 
+		VECTOR prev_activation = input;
+		for (size_t i = 0; i < layers.size(); ++i) {
+			LAYER& layer = layers[i];
+
+			for (size_t j = 0; j < layer.getOutputSize(); ++j) {
+				for (size_t k = 0; k < layer.getInputSize(); ++k) {
+					layer.getweights()[j][k] -= learning_rate * layer.getDelta()[j] * prev_activation[k];
+				}
+				layer.getBiases()[j] -= learning_rate * layer.getDelta()[j];
+			}
+
+			prev_activation = layer.getActivation();
+		}
 	}
+
+	double train(const VECTOR& input, const VECTOR& target)
+	{
+		VECTOR prediction = forward(input);
+		double loss = cross_entropy::compute_loss(input, target);
+		backward(input, target);
+		return loss;
+
+	}
+
+	size_t predict(const VECTOR& input)
+	{
+		VECTOR output = forward(input);
+		size_t max_index = 0;
+		double max_probability = output[0];
+
+		for (size_t i = 1; i < output.size(); ++i)
+		{
+			if (output[i] > output[max_index])
+			{
+				max_probability = output[i];
+				max_index = i;
+			}
+		}
+		return max_index;
+	}
+
 };
