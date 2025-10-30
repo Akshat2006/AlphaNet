@@ -19,6 +19,7 @@ public:
 			layers.emplace_back(architecture[i], architecture[i + 1], is_output);
 		}
 	}
+	                        
 
 	const VECTOR& forward(const	VECTOR& input)
 	{
