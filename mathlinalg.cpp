@@ -1,10 +1,11 @@
 #include "mathlinalg.h"
 
+VECTOR::VECTOR() : size_(0) {}
+
 VECTOR::VECTOR(size_t size, bool require_random) : size_(size) {
-    data.resize(size);
+    data.resize(size, 0.0);
     if (require_random) {
-        std::random_device rd;
-        std::mt19937 gen(rd());
+        static std::mt19937 gen(42);
         std::normal_distribution<double> dist(0.0, 0.1);
         for (size_t i = 0; i < size; ++i) {
             data[i] = dist(gen);
@@ -24,9 +25,9 @@ const double& VECTOR::operator[](size_t index) const {
     return data[index];
 }
 
-VECTOR VECTOR::operator+(const VECTOR& other) {
+VECTOR VECTOR::operator+(const VECTOR& other) const {
     if (size_ != other.size_) {
-        throw std::invalid_argument("size mismatch!");
+        throw std::invalid_argument("VECTOR::operator+ size mismatch!");
     }
     VECTOR result(size_);
     for (size_t i = 0; i < size_; i++) {
@@ -35,7 +36,18 @@ VECTOR VECTOR::operator+(const VECTOR& other) {
     return result;
 }
 
-VECTOR VECTOR::operator*(double scalar) {
+VECTOR VECTOR::operator-(const VECTOR& other) const {
+    if (size_ != other.size_) {
+        throw std::invalid_argument("VECTOR::operator- size mismatch!");
+    }
+    VECTOR result(size_);
+    for (size_t i = 0; i < size_; i++) {
+        result[i] = data[i] - other[i];
+    }
+    return result;
+}
+
+VECTOR VECTOR::operator*(double scalar) const {
     VECTOR result(size_);
     for (size_t i = 0; i < size_; i++) {
         result[i] = data[i] * scalar;
@@ -44,7 +56,7 @@ VECTOR VECTOR::operator*(double scalar) {
 }
 
 double VECTOR::dot(const VECTOR& other) const {
-    if (size_ != other.size_) throw std::invalid_argument("Size mismatch");
+    if (size_ != other.size_) throw std::invalid_argument("VECTOR::dot size mismatch");
     double result = 0.0;
     for (size_t i = 0; i < size_; i++) {
         result += data[i] * other[i];
@@ -53,7 +65,7 @@ double VECTOR::dot(const VECTOR& other) const {
 }
 
 VECTOR VECTOR::hadamard(const VECTOR& other) const {
-    if (size_ != other.size_) throw std::invalid_argument("Size mismatch");
+    if (size_ != other.size_) throw std::invalid_argument("VECTOR::hadamard size mismatch");
     VECTOR result(size_);
     for (size_t i = 0; i < size_; i++) {
         result[i] = data[i] * other[i];
@@ -61,19 +73,21 @@ VECTOR VECTOR::hadamard(const VECTOR& other) const {
     return result;
 }
 
-MATRIX::MATRIX(size_t rows, size_t cols, bool required_random) {
-    rows_ = rows;
-    cols_ = cols;
+MATRIX::MATRIX() : rows_(0), cols_(0) {}
+
+MATRIX::MATRIX(size_t rows, size_t cols, bool required_random)
+    : rows_(rows), cols_(cols) {
+    data.reserve(rows);
     for (size_t i = 0; i < rows; ++i) {
         data.emplace_back(cols, required_random);
     }
 }
 
-size_t MATRIX::rows() {
+size_t MATRIX::rows() const {
     return rows_;
 }
 
-size_t MATRIX::cols() {
+size_t MATRIX::cols() const {
     return cols_;
 }
 
@@ -85,18 +99,29 @@ const VECTOR& MATRIX::operator[](size_t row) const {
     return data[row];
 }
 
-MATRIX MATRIX::operator+(const MATRIX& other) {
+MATRIX MATRIX::operator+(const MATRIX& other) const {
     if (rows_ != other.rows_ || cols_ != other.cols_) {
-        throw std::invalid_argument("Shape mismatch");
+        throw std::invalid_argument("MATRIX::operator+ shape mismatch");
     }
     MATRIX result(rows_, cols_);
-    for (size_t i = 0; i < rows(); i++) {
+    for (size_t i = 0; i < rows_; i++) {
         result[i] = data[i] + other.data[i];
     }
     return result;
 }
 
-MATRIX MATRIX::operator*(double scalar) {
+MATRIX MATRIX::operator-(const MATRIX& other) const {
+    if (rows_ != other.rows_ || cols_ != other.cols_) {
+        throw std::invalid_argument("MATRIX::operator- shape mismatch");
+    }
+    MATRIX result(rows_, cols_);
+    for (size_t i = 0; i < rows_; i++) {
+        result[i] = data[i] - other.data[i];
+    }
+    return result;
+}
+
+MATRIX MATRIX::operator*(double scalar) const {
     MATRIX result(rows_, cols_);
     for (size_t i = 0; i < rows_; i++) {
         result[i] = data[i] * scalar;
@@ -116,7 +141,7 @@ MATRIX MATRIX::T() const {
 
 VECTOR MATRIX::operator*(const VECTOR& vec) const {
     if (cols_ != vec.size()) {
-        throw std::invalid_argument("Matrix columns != vector size");
+        throw std::invalid_argument("MATRIX*VECTOR: columns != vector size");
     }
     VECTOR result(rows_);
     for (size_t i = 0; i < rows_; ++i) {

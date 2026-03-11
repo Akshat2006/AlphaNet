@@ -1,5 +1,5 @@
 #ifndef ACTIVATIONS_H
-#define ACTIVATIONs_H
+#define ACTIVATIONS_H
 
 #include "mathlinalg.h"
 

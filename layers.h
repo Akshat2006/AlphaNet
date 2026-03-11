@@ -4,7 +4,6 @@
 #include "mathlinalg.h"
 #include "activations.h"
 #include <vector>
-#include <memory>
 
 class LAYER {
 private:
@@ -19,16 +18,16 @@ private:
     bool is_output_layer;
 
 public:
+    LAYER(size_t input_sz, size_t output_sz, bool is_output = false);
 
-    LAYER(VECTOR& input, VECTOR& output, bool is_output = false);
-
-    VECTOR& activate(VECTOR& input);
+    VECTOR activate(const VECTOR& input);
 
     size_t getInputSize() const { return input_size; }
     size_t getOutputSize() const { return output_size; }
     bool getIsOutputLayer() const { return is_output_layer; }
-    MATRIX& getweights() { return weights; }
-    const MATRIX getweights() const { return weights; }
+
+    MATRIX& getWeights() { return weights; }
+    const MATRIX& getWeights() const { return weights; }
     VECTOR& getBiases() { return biases; }
     const VECTOR& getBiases() const { return biases; }
     const VECTOR& getOutput() const { return output; }
@@ -40,4 +39,4 @@ public:
     void setDelta(const VECTOR& new_delta) { delta = new_delta; }
 };
 
-#endif // LAYERS_H
+#endif

@@ -1,4 +1,6 @@
 #include "activations.h"
+#include <algorithm>
+#include <cmath>
 
 VECTOR ReLu::forward(const VECTOR& input)
 {
@@ -34,7 +36,7 @@ VECTOR softmax::forward(const VECTOR& input)
 		output[i] = std::exp(input[i] - max_val);
 		sum += output[i];
 	}
-	for (size_t i = 0; i < input.size(); ++i) { //normalize ts gng
+	for (size_t i = 0; i < input.size(); ++i) {
 		output[i] /= sum;
 	}
 

@@ -6,6 +6,8 @@
 #include <stdexcept>
 #include <random>
 #include <cstddef>
+#include <cmath>
+#include <algorithm>
 
 class VECTOR {
 private:
@@ -13,7 +15,7 @@ private:
     size_t size_;
 
 public:
-
+    VECTOR();
     VECTOR(size_t size, bool require_random = false);
 
     size_t size() const;
@@ -21,8 +23,9 @@ public:
     double& operator[](size_t index);
     const double& operator[](size_t index) const;
 
-    VECTOR operator+(const VECTOR& other);
-    VECTOR operator*(double scalar);
+    VECTOR operator+(const VECTOR& other) const;
+    VECTOR operator-(const VECTOR& other) const;
+    VECTOR operator*(double scalar) const;
     double dot(const VECTOR& other) const;
     VECTOR hadamard(const VECTOR& other) const;
 };
@@ -33,20 +36,22 @@ private:
     size_t rows_, cols_;
 
 public:
+    MATRIX();
     MATRIX(size_t rows, size_t cols, bool required_random = false);
 
-    size_t rows();
-    size_t cols();
-  
+    size_t rows() const;
+    size_t cols() const;
+
     VECTOR& operator[](size_t row);
     const VECTOR& operator[](size_t row) const;
 
-    MATRIX operator+(const MATRIX& other);
-    MATRIX operator*(double scalar);
+    MATRIX operator+(const MATRIX& other) const;
+    MATRIX operator-(const MATRIX& other) const;
+    MATRIX operator*(double scalar) const;
     MATRIX T() const;
     VECTOR operator*(const VECTOR& vec) const;
 
     static MATRIX outer_product(const VECTOR& a, const VECTOR& b);
 };
 
-#endif // MATHLINALG_H
+#endif
