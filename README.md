@@ -1,4 +1,4 @@
-# AlphaNet 🧠
+# AlphaNet 
 
 A neural network built **from scratch in C++** to recognize handwritten letters (A-Z). No external ML libraries — just pure C++ with a custom linear algebra library.
 
