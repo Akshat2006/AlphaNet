@@ -52,9 +52,6 @@ int main(int argc, char* argv[]) {
     } catch (const std::exception& e) {
         std::cerr << "ERROR: " << e.what() << "\n";
         std::cerr << "\nPlease download the EMNIST Letters dataset:\n";
-        std::cerr << "  1. Run: python generate_data.py\n";
-        std::cerr << "  2. Or visit: https://www.kaggle.com/datasets/crawford/emnist\n";
-        std::cerr << "  3. Place CSVs in a 'data/' folder next to the executable\n";
         return 1;
     }
 
